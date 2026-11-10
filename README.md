@@ -9,6 +9,7 @@ Built and tested for an **NVIDIA RTX 3060 with 12 GB VRAM on Windows**:
 - **48 kHz stereo** WAV or MP3, plus an editable **ABC score**, semantic replay data and acoustic latents.
 - Q6_K and staged loading as explicit lower-memory options.
 - MCP over stdio and Streamable HTTP, plus REST and a command-line interface.
+- **Random seeds:** use `--seed -1`; add `--lm-seed -1` for an independently random token seed. MCP/HTTP accepts the same `-1` values.
 
 The host agent supplies the style, lyrics and optional score. YuE2 composes the score and audio. Inference uses native CUDA binaries; it does not install PyTorch, Transformers, Diffusers, ComfyUI or vLLM.
 
@@ -24,6 +25,7 @@ For a first installation, follow the [step-by-step guide](#installation) or give
 - [Installation instructions for an agent](#installation-instructions-for-an-agent)
 - [Common commands: start to stop](#common-commands-start-to-stop)
 - [Generate music and edit a score](#generate-music-and-edit-a-score)
+- [Random seeds: `--seed -1`](#random-seeds)
 - [Complete CLI reference](#complete-cli-reference)
 - [Agent harness integration](#agent-harness-integration)
 - [MCP tools](#mcp-tools)
@@ -237,6 +239,42 @@ Stop requests shutdown and returns stopping. Shutdown cancels active work and re
 
 ## Generate music and edit a score
 
+### Random seeds
+
+**`--seed -1` selects a random seed for each new song.** If `--lm-seed` is omitted, the token stage uses that same resolved seed.
+
+```powershell
+yue-music generate --style "English, indie folk pop, warm lead vocal, acoustic guitar, gentle drums" --lyrics-file .\examples\lyrics.txt --duration 60 --seed -1 --wait --out .\data\random-song.wav
+```
+
+To draw independent random seeds for the acoustic and token stages, set **both options to `-1`**:
+
+```powershell
+yue-music generate --style "English, indie folk pop, warm lead vocal, acoustic guitar, gentle drums" --lyrics-file .\examples\lyrics.txt --duration 60 --seed -1 --lm-seed -1 --wait --out .\data\random-stages.wav
+```
+
+MCP `generate_music` arguments or an HTTP `POST /v1/jobs` body:
+
+```json
+{
+  "style": "English, indie folk pop, warm lead vocal, acoustic guitar",
+  "lyrics": "[Verse]\nThe river carries morning light\nWe leave the shadows of the night",
+  "seed": -1,
+  "lm_seed": -1
+}
+```
+
+| Seed options | Behavior |
+| --- | --- |
+| `--seed -1` | Random acoustic seed; omitted token seed inherits it |
+| `--seed -1 --lm-seed -1` | Independent random draws for both stages |
+| `--seed 7 --lm-seed -1` | Fixed acoustic seed, random token seed |
+| `--seed 7 --lm-seed 7` | Fixed seeds for both stages |
+
+Omitting `seed`, or sending `null`, also chooses a random acoustic seed. Omitted/null `lm_seed` inherits the acoustic seed; explicit `-1` draws independently. Fixed seeds range from `0` to `4294967295`. The actual resolved values are stored in the job and metadata before inference.
+
+Retries with the same `client_request_id`/`--request-id` keep the original job and seeds. Omit that ID or use a new one for another random draw.
+
 ### Style and lyrics
 
 ~~~powershell
@@ -292,7 +330,7 @@ Successful jobs retain these files under `data/outputs/`:
 
 Replay JSON and latents are native artifacts. The public CLI does not accept replay-token or latent inputs; use the pinned engine's documented tools for those operations.
 
-Use `--format` mp3 for MP3 instead of WAV16. Match the `--out` extension to the format: copying does not transcode. Use `--seed -1`, omit it, or send `null` through HTTP/MCP for a random acoustic seed. The token seed `--lm-seed` inherits that resolved value when omitted or null. Set `--lm-seed -1` to draw an independent random token seed, including when the acoustic seed is fixed. Both resolved nonnegative 32-bit values are stored before inference. Fixed seeds apply within the tested runtime, not as a cross-hardware guarantee.
+Use `--format` mp3 for MP3 instead of WAV16. Match the `--out` extension to the format: copying does not transcode. See [random seeds](#random-seeds) for `-1`, omitted and fixed-seed behavior. Fixed seeds apply within the tested runtime, not as a cross-hardware guarantee.
 
 For retries, provide the same `--request-id` and generation settings. Random seeds are resolved once per job, so retries with that identifier reuse the stored values. Use a new identifier or omit it for a fresh random draw. Reusing an identifier with different settings is rejected.
 
