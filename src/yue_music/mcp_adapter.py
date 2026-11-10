@@ -50,6 +50,8 @@ def create_mcp(settings, autostart=True):
 
         duration is a 10-300 second ceiling, not an exact length. Empty lyrics allow instrumental
         generation. cot is full, melody or off. Supply abc in full/melody to render an edited score.
+        seed=-1 or omitted selects a random seed. Omitted lm_seed inherits it;
+        lm_seed=-1 selects an independent random token seed.
         """
         req = MusicRequest(
             style=style,

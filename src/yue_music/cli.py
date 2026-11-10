@@ -45,8 +45,14 @@ def main():
     gen.add_argument("--duration", type=float, default=60)
     gen.add_argument("--cot", choices=["full", "melody", "off"], default="full")
     gen.add_argument("--steps", type=int, default=8)
-    gen.add_argument("--seed", type=int)
-    gen.add_argument("--lm-seed", type=int)
+    gen.add_argument(
+        "--seed", type=int, help="Use -1 or omit for a random acoustic seed"
+    )
+    gen.add_argument(
+        "--lm-seed",
+        type=int,
+        help="Omit to inherit --seed; use -1 for an independent random token seed",
+    )
     gen.add_argument("--format", choices=["wav16", "mp3"], default="wav16")
     gen.add_argument("--request-id")
     gen.add_argument("--wait", action="store_true")

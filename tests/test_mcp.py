@@ -71,10 +71,13 @@ async def exercise(session):
     assert '"batch_size": 1' in text
     # These tests intentionally have no model weights. A real submission must fail honestly.
     submitted = await session.call_tool(
-        "generate_music", {"style": "English, indie pop", "duration": 10}
+        "generate_music",
+        {"style": "English, indie pop", "duration": 10, "seed": -1, "lm_seed": -1},
     )
     assert not submitted.isError
     job_id = submitted.structuredContent["job_id"]
+    assert 0 <= submitted.structuredContent["request"]["seed"] < 2**32
+    assert 0 <= submitted.structuredContent["request"]["lm_seed"] < 2**32
     for _ in range(40):
         response = await session.call_tool("get_music_job", {"job_id": job_id})
         if response.structuredContent["status"] == "failed":

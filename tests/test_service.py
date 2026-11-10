@@ -73,6 +73,50 @@ def test_serialization_retry_and_both_seeds(tmp_path):
         store.close()
 
 
+@pytest.mark.parametrize(
+    "seed,lm_seed,draws,expected",
+    [
+        (None, None, [17], (17, 17)),
+        (-1, None, [17], (17, 17)),
+        (-1, -1, [17, 29], (17, 29)),
+        (0, -1, [29], (0, 29)),
+        (2**32 - 1, None, [], (2**32 - 1, 2**32 - 1)),
+        (-1, 42, [17], (17, 42)),
+        (7, 8, [], (7, 8)),
+    ],
+)
+def test_seed_resolution_is_persisted_and_retries_do_not_redraw(
+    tmp_path, monkeypatch, seed, lm_seed, draws, expected
+):
+    from unittest.mock import Mock
+
+    draw = Mock(side_effect=draws)
+    monkeypatch.setattr("yue_music.jobs.secrets.randbelow", draw)
+    store = JobStore(tmp_path, StubBackend(tmp_path))
+    req = MusicRequest(
+        style="pop", seed=seed, lm_seed=lm_seed, client_request_id="seed-retry"
+    )
+    first = store.submit(req)
+    assert (first["request"]["seed"], first["request"]["lm_seed"]) == expected
+    assert (req.seed, req.lm_seed) == (seed, lm_seed)
+    assert store.submit(req)["job_id"] == first["job_id"]
+    recovered = JobStore(tmp_path, StubBackend(tmp_path))
+    retried = recovered.submit(req)
+    assert (retried["request"]["seed"], retried["request"]["lm_seed"]) == expected
+    assert draw.call_count == len(draws)
+
+
+def test_random_seed_is_drawn_for_each_new_job(tmp_path, monkeypatch):
+    from unittest.mock import Mock
+
+    monkeypatch.setattr("yue_music.jobs.secrets.randbelow", Mock(side_effect=[17, 29]))
+    store = JobStore(tmp_path, StubBackend(tmp_path))
+    req = MusicRequest(style="pop", seed=-1)
+    first, second = store.submit(req), store.submit(req)
+    assert (first["request"]["seed"], first["request"]["lm_seed"]) == (17, 17)
+    assert (second["request"]["seed"], second["request"]["lm_seed"]) == (29, 29)
+
+
 def test_cancel_and_restart(tmp_path):
     store = JobStore(tmp_path, StubBackend(tmp_path))
     job = store.submit(MusicRequest(style="pop"))
@@ -102,8 +146,10 @@ def test_http_auth_validation_and_artifacts(tmp_path):
             ).status_code
             == 422
         )
-        job = http.post("/v1/jobs", json={"style": "pop"})
+        job = http.post("/v1/jobs", json={"style": "pop", "seed": -1, "lm_seed": -1})
         assert job.status_code == 202
+        assert 0 <= job.json()["request"]["seed"] < 2**32
+        assert 0 <= job.json()["request"]["lm_seed"] < 2**32
         job_id = job.json()["job_id"]
         result = wait(http.app.state.store, job_id)
         assert result["status"] == "succeeded"
@@ -116,7 +162,10 @@ def test_request_bounds():
     for data in (
         {"duration": float("nan")},
         {"steps": 8.5},
-        {"seed": -1},
+        {"seed": -2},
+        {"lm_seed": -2},
+        {"seed": 2**32},
+        {"lm_seed": 2**32},
         {"abc": "K:C", "cot": "off"},
     ):
         with pytest.raises(ValidationError):

@@ -34,7 +34,7 @@ Native process termination after each standalone benchmark returned the 3060's r
 
 ## Verification scope
 
-Queue/service tests cover serialization, idempotent retries with both seeds, cancellation state, interrupted-job recovery, input validation, authentication, foreign-origin rejection and artifact retrieval. Real subprocess tests exercise stdio MCP and Streamable HTTP MCP with missing-model failures. Regression tests verify NVML inventory under the SDK's filtered environment and that the shared worker survives stdio adapter disconnection. The suite passes nine tests; one upstream Starlette/AnyIO deprecation warning remains.
+Queue/service tests cover serialization, idempotent retries with both seeds, cancellation state, interrupted-job recovery, input validation, authentication, foreign-origin rejection and artifact retrieval. Real subprocess tests exercise stdio MCP and Streamable HTTP MCP with missing-model failures. Regression tests verify NVML inventory under the SDK's filtered environment and that the shared worker survives stdio adapter disconnection. The suite now passes 17 tests, including explicit -1 random seeds and persisted seed resolution; one upstream Starlette/AnyIO deprecation warning remains.
 
 Hardware checks verify WAV headers, 48 kHz stereo, nonzero finite samples and RMS amplitude. These checks do not score singing, lyric fidelity, composition or eight-step quality relative to 32 steps. The WAV files remain under `data/outputs` for listening.
 

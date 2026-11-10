@@ -292,9 +292,9 @@ Successful jobs retain these files under `data/outputs/`:
 
 Replay JSON and latents are native artifacts. The public CLI does not accept replay-token or latent inputs; use the pinned engine's documented tools for those operations.
 
-Use `--format` mp3 for MP3 instead of WAV16. Match the `--out` extension to the format: copying does not transcode. The token seed `--lm-seed` defaults to the acoustic `--seed`. Omitted seeds are generated and stored. Fixed seeds apply within the tested runtime, not as a cross-hardware guarantee.
+Use `--format` mp3 for MP3 instead of WAV16. Match the `--out` extension to the format: copying does not transcode. Use `--seed -1`, omit it, or send `null` through HTTP/MCP for a random acoustic seed. The token seed `--lm-seed` inherits that resolved value when omitted or null. Set `--lm-seed -1` to draw an independent random token seed, including when the acoustic seed is fixed. Both resolved nonnegative 32-bit values are stored before inference. Fixed seeds apply within the tested runtime, not as a cross-hardware guarantee.
 
-For retries, provide the same `--request-id` and generation settings. Reusing an identifier with different settings is rejected.
+For retries, provide the same `--request-id` and generation settings. Random seeds are resolved once per job, so retries with that identifier reuse the stored values. Use a new identifier or omit it for a fresh random draw. Reusing an identifier with different settings is rejected.
 
 ## Complete CLI reference
 
@@ -354,7 +354,8 @@ Generation fields:
 | duration | 60; finite value from 10 to 300 seconds |
 | cot | full; also melody or off |
 | steps | 8; integer from 4 to 32 |
-| seed, lm_seed | Optional integers from 0 to 4,294,967,295 |
+| seed | Fixed integer from 0 to 4,294,967,295; -1, null or omitted selects random |
+| lm_seed | Same fixed range; null/omitted inherits seed; -1 selects independent random |
 | `output_format` | wav16; also mp3 |
 | `client_request_id` | Optional retry identifier, up to 128 characters |
 
@@ -495,7 +496,7 @@ From the project folder:
 powershell -ExecutionPolicy Bypass -File .\scripts\test.ps1
 ~~~
 
-The validated suite passes **nine tests**: queue serialization, retries/seeds, cancellation state, interrupted-job recovery, bounds, authentication, origins, artifact retrieval, real stdio/HTTP MCP sessions, filtered Windows environments and adapter-disconnect persistence. Model-less tests use temporary directories and do not generate music. The NVML regression probe skips without an available NVIDIA inventory.
+The validated suite passes **17 tests**: queue serialization, random/fixed seed resolution and persisted retries, cancellation state, interrupted-job recovery, bounds, authentication, origins, artifact retrieval, real stdio/HTTP MCP sessions, filtered Windows environments and adapter-disconnect persistence. Model-less tests use temporary directories and do not generate music. The NVML regression probe skips without an available NVIDIA inventory.
 
 One upstream Starlette/AnyIO deprecation warning remains; it does not fail the suite.
 
