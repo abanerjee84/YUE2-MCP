@@ -1,0 +1,50 @@
+{
+  "transport": "stdio MCP",
+  "generation": {
+    "request": {
+      "style": "English, acoustic folk, clear warm vocal, fingerpicked guitar, gentle percussion",
+      "lyrics": "[Verse]\nThe river carries morning light\nWe leave the shadows of the night\n[Chorus]\nCarry me home, carry me home\nUnder the sky we call our own",
+      "abc": "",
+      "cot": "full",
+      "duration": 20.0,
+      "steps": 8,
+      "seed": 17,
+      "lm_seed": 17,
+      "output_format": "wav16",
+      "client_request_id": null
+    },
+    "status": "succeeded",
+    "created": 1794347999.620049,
+    "updated": 1794348073.1251676,
+    "progress": 100,
+    "stage": "done",
+    "error": null,
+    "result": {
+      "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6083cd8a5ce64252aed8b731d1bea79c.wav",
+      "audio_url": "/v1/jobs/6083cd8a5ce64252aed8b731d1bea79c/audio",
+      "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6083cd8a5ce64252aed8b731d1bea79c.abc",
+      "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6083cd8a5ce64252aed8b731d1bea79c.replay.json",
+      "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6083cd8a5ce64252aed8b731d1bea79c.native.log",
+      "duration_seconds": 19.999,
+      "duration_is_ceiling": true,
+      "hit_duration_ceiling": true,
+      "elapsed_seconds": 73.344,
+      "seed": 17,
+      "lm_seed": 17,
+      "quant": "Q8_0",
+      "memory": {
+        "available": true,
+        "samples": 143,
+        "peak_dedicated_mib": 6835.22,
+        "peak_shared_mib": 80.0,
+        "current_dedicated_mib": 6835.22,
+        "current_shared_mib": 80.0,
+        "gpu_uuid": "redacted-rtx3060",
+        "native_pid": 21852
+      }
+    },
+    "job_id": "6083cd8a5ce64252aed8b731d1bea79c"
+  },
+  "score_chars": 1231,
+  "cancellation_status": "cancelled"
+}

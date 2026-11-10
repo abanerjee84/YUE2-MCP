@@ -1,0 +1,15 @@
+﻿{
+  "mcpServers": {
+    "local-yue": {
+      "command": "E:\\TOOLS\\YUE2-MCP\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "yue_music",
+        "mcp"
+      ],
+      "env": {
+        "YUE_MUSIC_HOME": "E:\\TOOLS\\YUE2-MCP\\data"
+      }
+    }
+  }
+}

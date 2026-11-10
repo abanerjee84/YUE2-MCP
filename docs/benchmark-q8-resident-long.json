@@ -1,0 +1,91 @@
+{
+  "case": "q8-resident-long",
+  "request": {
+    "style": "English, indie folk pop, warm clear lead vocal, acoustic guitar, bass, gentle drums, 100 BPM",
+    "lyrics": "[Verse]\nThe morning train rolls past the hill\nThe river shines, the town is still\nI take the road that leads to you\nThe sky unfolds in gold and blue\n\n[Chorus]\nCarry me home through the light\nWe keep a song through the night\nOne little spark, one open door\nWe find the world we're looking for\n\n[Verse]\nThe morning train rolls past the hill\nThe river shines, the town is still\nI take the road that leads to you\nThe sky unfolds in gold and blue\n\n[Chorus]\nCarry me home through the light\nWe keep a song through the night\nOne little spark, one open door\nWe find the world we're looking for\n\n[Verse]\nThe morning train rolls past the hill\nThe river shines, the town is still\nI take the road that leads to you\nThe sky unfolds in gold and blue\n\n[Chorus]\nCarry me home through the light\nWe keep a song through the night\nOne little spark, one open door\nWe find the world we're looking for\n\n[Verse]\nThe morning train rolls past the hill\nThe river shines, the town is still\nI take the road that leads to you\nThe sky unfolds in gold and blue\n\n[Chorus]\nCarry me home through the light\nWe keep a song through the night\nOne little spark, one open door\nWe find the world we're looking for",
+    "abc": "",
+    "cot": "full",
+    "duration": 300.0,
+    "steps": 8,
+    "seed": 7,
+    "lm_seed": 7,
+    "output_format": "wav16",
+    "client_request_id": null
+  },
+  "hardware": [
+    {
+      "uuid": "redacted-rtx3060",
+      "name": "NVIDIA GeForce RTX 3060",
+      "total_mib": "12288",
+      "free_mib": "12110"
+    },
+    {
+      "uuid": "redacted-other-gpu",
+      "name": "NVIDIA GeForce RTX 5060 Ti",
+      "total_mib": "16311",
+      "free_mib": "1002"
+    }
+  ],
+  "max_seq": 16384,
+  "keep_loaded": true,
+  "audio": {
+    "channels": 2,
+    "sample_rate": 48000,
+    "duration_seconds": 219.23866666666666,
+    "rms": 0.2000872939825058,
+    "peak": 0.999969482421875,
+    "finite": true
+  },
+  "status": "succeeded",
+  "result": {
+    "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.wav",
+    "audio_url": "/v1/jobs/68cf248e3c404076a69333034f775fae/audio",
+    "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.abc",
+    "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.replay.json",
+    "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.native.log",
+    "duration_seconds": 219.239,
+    "duration_is_ceiling": true,
+    "hit_duration_ceiling": false,
+    "elapsed_seconds": 163.063,
+    "seed": 7,
+    "lm_seed": 7,
+    "quant": "Q8_0",
+    "memory": {
+      "available": true,
+      "samples": 320,
+      "peak_dedicated_mib": 7909.25,
+      "peak_shared_mib": 94.0,
+      "current_dedicated_mib": 7909.25,
+      "current_shared_mib": 94.0,
+      "gpu_uuid": "redacted-rtx3060",
+      "native_pid": 27376
+    }
+  },
+  "runs": [
+    {
+      "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.wav",
+      "audio_url": "/v1/jobs/68cf248e3c404076a69333034f775fae/audio",
+      "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.abc",
+      "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.replay.json",
+      "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\68cf248e3c404076a69333034f775fae.native.log",
+      "duration_seconds": 219.239,
+      "duration_is_ceiling": true,
+      "hit_duration_ceiling": false,
+      "elapsed_seconds": 163.063,
+      "seed": 7,
+      "lm_seed": 7,
+      "quant": "Q8_0",
+      "memory": {
+        "available": true,
+        "samples": 320,
+        "peak_dedicated_mib": 7909.25,
+        "peak_shared_mib": 94.0,
+        "current_dedicated_mib": 7909.25,
+        "current_shared_mib": 94.0,
+        "gpu_uuid": "redacted-rtx3060",
+        "native_pid": 27376
+      }
+    }
+  ],
+  "wall_seconds": 163.235
+}

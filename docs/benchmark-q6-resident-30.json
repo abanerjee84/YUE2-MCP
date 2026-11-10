@@ -1,0 +1,115 @@
+{
+  "case": "q6-resident-30",
+  "request": {
+    "style": "English, indie folk pop, warm clear lead vocal, acoustic guitar, bass, gentle drums, 100 BPM",
+    "lyrics": "[Verse]\nThe morning train rolls past the hill\nThe river shines, the town is still\nI take the road that leads to you\nThe sky unfolds in gold and blue\n\n[Chorus]\nCarry me home through the light\nWe keep a song through the night\nOne little spark, one open door\nWe find the world we're looking for",
+    "abc": "",
+    "cot": "full",
+    "duration": 30.0,
+    "steps": 8,
+    "seed": 7,
+    "lm_seed": 7,
+    "output_format": "wav16",
+    "client_request_id": null
+  },
+  "hardware": [
+    {
+      "uuid": "redacted-rtx3060",
+      "name": "NVIDIA GeForce RTX 3060",
+      "total_mib": "12288",
+      "free_mib": "12110"
+    },
+    {
+      "uuid": "redacted-other-gpu",
+      "name": "NVIDIA GeForce RTX 5060 Ti",
+      "total_mib": "16311",
+      "free_mib": "1007"
+    }
+  ],
+  "max_seq": 16384,
+  "keep_loaded": true,
+  "audio": {
+    "channels": 2,
+    "sample_rate": 48000,
+    "duration_seconds": 29.998666666666665,
+    "rms": 0.19513827562332153,
+    "peak": 0.999969482421875,
+    "finite": true
+  },
+  "status": "succeeded",
+  "result": {
+    "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.wav",
+    "audio_url": "/v1/jobs/396ae66a856f4223b68c2c7257108437/audio",
+    "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.abc",
+    "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.replay.json",
+    "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.native.log",
+    "duration_seconds": 29.999,
+    "duration_is_ceiling": true,
+    "hit_duration_ceiling": true,
+    "elapsed_seconds": 49.781,
+    "seed": 7,
+    "lm_seed": 7,
+    "quant": "Q6_K",
+    "memory": {
+      "available": true,
+      "samples": 96,
+      "peak_dedicated_mib": 6113.21,
+      "peak_shared_mib": 80.0,
+      "current_dedicated_mib": 6113.21,
+      "current_shared_mib": 80.0,
+      "gpu_uuid": "redacted-rtx3060",
+      "native_pid": 19188
+    }
+  },
+  "runs": [
+    {
+      "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.wav",
+      "audio_url": "/v1/jobs/396ae66a856f4223b68c2c7257108437/audio",
+      "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.abc",
+      "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.replay.json",
+      "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\396ae66a856f4223b68c2c7257108437.native.log",
+      "duration_seconds": 29.999,
+      "duration_is_ceiling": true,
+      "hit_duration_ceiling": true,
+      "elapsed_seconds": 49.781,
+      "seed": 7,
+      "lm_seed": 7,
+      "quant": "Q6_K",
+      "memory": {
+        "available": true,
+        "samples": 96,
+        "peak_dedicated_mib": 6113.21,
+        "peak_shared_mib": 80.0,
+        "current_dedicated_mib": 6113.21,
+        "current_shared_mib": 80.0,
+        "gpu_uuid": "redacted-rtx3060",
+        "native_pid": 19188
+      }
+    },
+    {
+      "audio_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6da627a84b9c4625bcb08a1a95d88734.wav",
+      "audio_url": "/v1/jobs/6da627a84b9c4625bcb08a1a95d88734/audio",
+      "score_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6da627a84b9c4625bcb08a1a95d88734.abc",
+      "replay_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6da627a84b9c4625bcb08a1a95d88734.replay.json",
+      "native_log_path": "E:\\TOOLS\\YUE2-MCP\\data\\outputs\\6da627a84b9c4625bcb08a1a95d88734.native.log",
+      "duration_seconds": 29.999,
+      "duration_is_ceiling": true,
+      "hit_duration_ceiling": true,
+      "elapsed_seconds": 14.578,
+      "seed": 7,
+      "lm_seed": 7,
+      "quant": "Q6_K",
+      "memory": {
+        "available": true,
+        "samples": 29,
+        "peak_dedicated_mib": 6113.21,
+        "peak_shared_mib": 80.0,
+        "current_dedicated_mib": 6113.21,
+        "current_shared_mib": 80.0,
+        "gpu_uuid": "redacted-rtx3060",
+        "native_pid": 19188
+      }
+    }
+  ],
+  "wall_seconds": 64.469
+}
